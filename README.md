@@ -1,230 +1,164 @@
-# Power System Studies Engineering Lab
+# 01 — System Model
 
 ## Purpose
 
-The Power System Studies Engineering Lab is a long-term engineering learning and development project focused on practical power-system studies implemented using Python.
+This directory contains the source-of-truth definition of the fictional power network used throughout the Power System Studies Engineering Lab.
 
-The project uses a fictional but technically coherent electrical network as a laboratory environment for developing:
+The data in this directory defines the initial network topology, equipment and operating conditions.
 
-- Power-system analysis knowledge
-- Numerical methods
-- Python programming skills
-- Engineering modelling skills
-- Automated verification and testing
-- Engineering interpretation and documentation
-
-The project is intended for educational and portfolio development purposes.
-
-It does not represent an actual utility network and must not be treated as a substitute for a utility-grade engineering study.
+All data is synthetic and intended for educational and portfolio purposes.
 
 ---
 
-## Engineering Philosophy
+## Network Topology
 
-The project follows the workflow:
+The initial network consists of:
 
-LEARN
-→ UNDERSTAND
-→ WORK A NUMERICAL EXAMPLE
-→ IMPLEMENT IN PYTHON
-→ TEST
-→ INTERPRET RESULTS
-→ DOCUMENT
-→ MOVE TO THE NEXT STUDY
-
-Python is used as the laboratory through which power-system engineering concepts are explored.
-
-The objective is not simply to produce numerical answers, but to understand:
-
-1. What engineering problem is being solved.
-2. Why the study is performed.
-3. What physical principles govern the problem.
-4. What mathematical model represents the system.
-5. How the numerical method works.
-6. How the method is implemented.
-7. How the implementation is verified.
-8. What the results mean physically.
-9. What engineering decisions the results could support.
+- Bus 1 — 132 kV grid/slack bus
+- Bus 2 — 33 kV main bus
+- Bus 3 — 33 kV load bus
+- Bus 4 — 33 kV load bus
+- Bus 5 — 33 kV load bus
+- Transformer T1 — 132/33 kV, 50 MVA
+- Line L1 — Bus 2 to Bus 3
+- Line L2 — Bus 2 to Bus 4
+- Line L3 — Bus 2 to Bus 5
 
 ---
 
-## Initial Study Scope
+## System Bases
 
-The first milestone is:
+| Quantity | Value |
+|---|---:|
+| System MVA base | 100 MVA |
+| HV voltage base | 132 kV |
+| MV voltage base | 33 kV |
+| Frequency | 50 Hz |
 
-**Milestone 01 — Power-System Model & Per-Unit System**
+Derived quantities:
 
-The initial milestone covers:
+### 132 kV side
 
-- System topology
-- Bus modelling
-- Generator/grid representation
-- Load modelling
-- Transformer modelling
-- Line modelling
-- System base selection
-- Voltage bases
-- Base impedance
-- Base current
-- Per-unit conversion
-- Engineering assumptions
-- Manual verification
-- Python implementation
-- Automated tests
+Z_base = V_base² / S_base
 
-The next major study will be:
+Z_base = 132² / 100
 
-**Milestone 02 — Y-Bus Formation**
+Z_base = 174.24 Ω
 
----
+I_base = S_base / (√3 × V_base)
 
-## Initial System
+I_base ≈ 437.4 A
 
-The initial fictional network consists of:
+### 33 kV side
 
-- One external grid source
-- One 132/33 kV transformer
-- One 33 kV main bus
-- Three 33 kV feeders
-- Three load buses
+Z_base = 33² / 100
 
-Conceptually:
+Z_base = 10.89 Ω
 
-    GRID
-      |
-    BUS 1
-    132 kV
-      |
-    T1
-    132/33 kV
-      |
-    BUS 2
-    33 kV
-    /  |  \
-   /   |   \
- L1   L2   L3
-  |    |    |
- B3   B4   B5
-  |    |    |
- L1   L2   L3
+I_base = 100 MVA / (√3 × 33 kV)
+
+I_base ≈ 1749.5 A
 
 ---
 
-## System Base
+## Transformer
 
-The initial common system base is:
+Transformer T1:
 
-- Apparent power base: 100 MVA
-- HV voltage base: 132 kV
-- MV voltage base: 33 kV
-- Frequency: 50 Hz
+- Rating: 50 MVA
+- HV: 132 kV
+- LV: 33 kV
+- Leakage impedance: 10%
+- Transformer resistance: neglected initially
+- Nominal tap: 1.0 pu
 
-The 33 kV voltage base is derived from the 132/33 kV transformer ratio.
+The transformer impedance is initially represented as purely reactive.
 
----
+On the transformer base:
 
-## Important Modelling Conventions
+Z_T = j0.10 pu
 
-### Voltage
+Converted to the 100 MVA system base:
 
-Bus voltage is represented using line-to-line RMS voltage for the three-phase system.
+Z_T,new = Z_T,old × (S_base,new / S_base,old)
 
-### Power
+Z_T,new = j0.10 × (100 / 50)
 
-Three-phase apparent power is represented using:
-
-S = √3 × V × I
-
-### Per-Unit
-
-The primary per-unit relationships used in the project are:
-
-V_pu = V_actual / V_base
-
-I_pu = I_actual / I_base
-
-Z_pu = Z_actual / Z_base
-
-S_pu = S_actual / S_base
-
-### Sign Convention
-
-Loads are treated as consuming positive active and reactive power.
-
-Therefore:
-
-P_load > 0
-
-Q_load > 0
-
-within the engineering input data.
-
-The power-flow formulation will later translate these quantities into the sign convention required by the numerical solver.
+Z_T,new = j0.20 pu
 
 ---
 
-## Data Classification
+## Loads
 
-Engineering information in this repository is classified conceptually as:
+### Load 1 — Bus 3
 
-### Physical Principle
+- Active power: 10 MW
+- Power factor: 0.95 lagging
+- Reactive power: approximately 3.29 MVAr
 
-A fundamental electrical relationship or physical law.
+### Load 2 — Bus 4
 
-### Textbook Model
+- Active power: 12 MW
+- Power factor: 0.92 lagging
+- Reactive power: approximately 5.10 MVAr
 
-A mathematical simplification used for analysis.
+### Load 3 — Bus 5
 
-### Project Assumption
+- Active power: 8 MW
+- Power factor: 0.90 lagging
+- Reactive power: approximately 3.88 MVAr
 
-A value or modelling decision deliberately selected for this educational network.
+Total:
 
-### Industry Practice
-
-A convention commonly used in professional power-system studies.
-
-### Engineering Requirement
-
-A requirement that would need to be established from an applicable standard, grid code, utility specification, equipment specification or actual engineering study.
-
-Project assumptions must not be represented as real utility requirements.
-
----
-
-## Project Limitations
-
-The initial model is intentionally simplified.
-
-It does not currently represent:
-
-- Actual utility network data
-- Detailed conductor geometry
-- Detailed transformer construction
-- Detailed generator models
-- Protection settings
-- Actual protection coordination
-- Detailed grounding systems
-- Dynamic machine behaviour
-- Detailed load models
-- Harmonic behaviour
-- Electromagnetic transients
-- Real utility operating constraints
-
-These may be introduced later where they support the learning objectives.
+- Active power: 30 MW
+- Reactive power: approximately 12.27 MVAr
+- Apparent power: approximately 32.41 MVA
 
 ---
 
-## Learning Approach
+## Bus Types
 
-Each major study should connect:
+| Bus | Type | Description |
+|---|---|---|
+| 1 | SLACK | External grid reference |
+| 2 | PQ | 33 kV main bus |
+| 3 | PQ | Load bus |
+| 4 | PQ | Load bus |
+| 5 | PQ | Load bus |
 
-Physical system
-→ Mathematical model
-→ Numerical method
-→ Python implementation
-→ Verification
-→ Engineering interpretation
+Bus 1 is initially specified as:
 
-The project should favour incremental development over large implementations.
+V = 1.0 pu
 
-Code should be understandable, testable and traceable to the engineering equations it implements.
+δ = 0°
+
+---
+
+## Modelling Assumptions
+
+1. The network is balanced and represented using a positive-sequence, three-phase steady-state model.
+2. The external grid is represented by a slack/reference bus for the initial power-flow study.
+3. Transformer resistance is neglected initially.
+4. Transformer tap position is fixed at nominal.
+5. Lines are represented by lumped series impedance.
+6. Line shunt capacitance is neglected initially.
+7. Loads are represented as constant P-Q loads.
+8. All network data is synthetic.
+9. No equipment limits are enforced in the first system-model milestone.
+10. No generator other than the external grid is represented initially.
+
+---
+
+## Engineering Purpose
+
+This model will form the basis for:
+
+- Per-unit calculations
+- Y-bus formation
+- Power-flow studies
+- Voltage-profile analysis
+- Loss calculations
+- Contingency studies
+- Short-circuit studies
+- Protection-related analysis
+- Future network expansion
