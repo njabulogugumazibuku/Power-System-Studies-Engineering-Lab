@@ -1,0 +1,6 @@
+bus_id,name,base_kv,bus_type,vm_pu,va_deg,p_load_mw,q_load_mvar,in_service
+1,Grid Bus,132,SLACK,1.0,0.0,0.0,0.0,True
+2,Main 33 kV Bus,33,PQ,1.0,0.0,0.0,0.0,True
+3,Feeder 1 Bus,33,PQ,1.0,0.0,10.0,3.29,True
+4,Feeder 2 Bus,33,PQ,1.0,0.0,12.0,5.10,True
+5,Feeder 3 Bus,33,PQ,1.0,0.0,8.0,3.88,True
