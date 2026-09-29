@@ -21,16 +21,16 @@ It does not represent an actual utility network and must not be treated as a sub
 
 ## Engineering Philosophy
 
-The project follows the workflow:
+The project follows this workflow:
 
-LEARN
-→ UNDERSTAND
-→ WORK A NUMERICAL EXAMPLE
-→ IMPLEMENT IN PYTHON
-→ TEST
-→ INTERPRET RESULTS
-→ DOCUMENT
-→ MOVE TO THE NEXT STUDY
+1. Learn the engineering concept.
+2. Understand the physical principles and model.
+3. Work through a numerical example.
+4. Implement the method in Python.
+5. Test the implementation.
+6. Interpret the results.
+7. Document the findings.
+8. Move to the next study.
 
 Python is used as the laboratory through which power-system engineering concepts are explored.
 
@@ -90,6 +90,7 @@ The initial fictional network consists of:
 
 Conceptually:
 
+```text
     GRID
       |
     BUS 1
@@ -102,11 +103,12 @@ Conceptually:
     33 kV
     /  |  \
    /   |   \
- L1   L2   L3
+   L1   L2   L3
   |    |    |
- B3   B4   B5
+  B3   B4   B5
   |    |    |
- L1   L2   L3
+  L1   L2   L3
+```
 
 ---
 
@@ -131,33 +133,32 @@ Bus voltage is represented using line-to-line RMS voltage for the three-phase sy
 
 ### Power
 
-Three-phase apparent power is represented using:
+Three-phase apparent power is calculated as:
 
-S = √3 × V × I
+$$
+S = \sqrt{3}\,V_{LL}I_L
+$$
 
 ### Per-Unit
 
 The primary per-unit relationships used in the project are:
 
-V_pu = V_actual / V_base
-
-I_pu = I_actual / I_base
-
-Z_pu = Z_actual / Z_base
-
-S_pu = S_actual / S_base
+$$
+V_{pu} = \frac{V_{actual}}{V_{base}},\qquad
+I_{pu} = \frac{I_{actual}}{I_{base}},\qquad
+Z_{pu} = \frac{Z_{actual}}{Z_{base}},\qquad
+S_{pu} = \frac{S_{actual}}{S_{base}}
+$$
 
 ### Sign Convention
 
 Loads are treated as consuming positive active and reactive power.
 
-Therefore:
+Within the engineering input data, this means:
 
-P_load > 0
-
-Q_load > 0
-
-within the engineering input data.
+$$
+P_{load} > 0,\qquad Q_{load} > 0
+$$
 
 The power-flow formulation will later translate these quantities into the sign convention required by the numerical solver.
 
@@ -216,14 +217,9 @@ These may be introduced later where they support the learning objectives.
 
 ## Learning Approach
 
-Each major study should connect:
+Each major study should connect these stages:
 
-Physical system
-→ Mathematical model
-→ Numerical method
-→ Python implementation
-→ Verification
-→ Engineering interpretation
+**Physical system → Mathematical model → Numerical method → Python implementation → Verification → Engineering interpretation**
 
 The project should favour incremental development over large implementations.
 
