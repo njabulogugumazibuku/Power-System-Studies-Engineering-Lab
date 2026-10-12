@@ -1,17 +1,5 @@
-"""
-Power-system engineering models.
-"""
+"""Public model classes for the power-system package."""
 
-from .bus import Bus
-from .generator import Generator
-from .line import Line
-from .network import Network
-from .transformer import Transformer
+from .models import Bus, Generator, Line, Network, Transformer
 
-__all__ = [
-    "Bus",
-    "Generator",
-    "Line",
-    "Network",
-    "Transformer",
-]
+__all__ = ["Bus", "Generator", "Line", "Network", "Transformer"]
