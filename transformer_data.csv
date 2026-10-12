@@ -1,0 +1,2 @@
+transformer_id,from_bus,to_bus,rated_mva,hv_kv,lv_kv,r_pu,x_pu,tap_ratio,in_service
+T1,1,2,50,132,33,0.0,0.20,1.0,True

@@ -1,0 +1,2 @@
+generator_id,bus_id,name,generator_type,vm_pu,p_min_mw,p_max_mw,q_min_mvar,q_max_mvar,in_service
+G1,1,External Grid,SLACK,1.0,,,,,True
