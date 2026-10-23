@@ -158,11 +158,11 @@ The model documentation must therefore establish whether these values are stored
 
 If conversion is required, the bases must be identified explicitly. For compatible voltage bases:
 
-\[
+$$
 Z_{\text{pu,new}} =
 Z_{\text{pu,old}}
 \frac{S_{\text{base,new}}}{S_{\text{base,old}}}
-\]
+$$
 
 More generally, the voltage-base ratio must also be included.
 
@@ -192,33 +192,33 @@ The definition of `tap_ratio` must specify the direction of the ratio, its nomin
 
 For a uniform line represented by a series impedance, the total series impedance is calculated from the line length and the per-kilometre impedance parameters:
 
-\[
+$$
 Z_{\text{line}} =
 L(r+jx)
-\]
+$$
 
 where:
 
-- \(L\) is the line length in kilometres.
-- \(r\) is the resistance per kilometre.
-- \(x\) is the reactance per kilometre.
-- \(j=\sqrt{-1}\).
+- $L$ is the line length in kilometres.
+- $r$ is the resistance per kilometre.
+- $x$ is the reactance per kilometre.
+- $j=\sqrt{-1}$.
 
 Therefore,
 
-\[
+$$
 R_{\text{line}}=Lr
-\]
+$$
 
-\[
+$$
 X_{\text{line}}=Lx
-\]
+$$
 
 and
 
-\[
+$$
 Z_{\text{line}}=R_{\text{line}}+jX_{\text{line}}
-\]
+$$
 
 The resulting impedance is expressed in ohms.
 

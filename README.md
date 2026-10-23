@@ -78,7 +78,7 @@ source .venv/bin/activate
 
 ```powershell
 py -3 -m venv .venv
-.venv\\Scripts\\Activate.ps1
+.venv\Scripts\Activate.ps1
 ```
 
 If your system does not have the required Python version, install Python 3.10 or later before continuing.

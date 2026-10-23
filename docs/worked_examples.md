@@ -43,12 +43,12 @@ The three feeders are separate branches connected to Bus 2. The loads are not co
 
 | Quantity | Value |
 |---|---:|
-| Three-phase apparent-power base, \(S_\text{base}\) | 100 MVA |
-| Bus 1 voltage base, \(V_{\text{base},1}\) | 132 kV |
-| Bus 2 voltage base, \(V_{\text{base},2}\) | 33 kV |
-| Bus 3 voltage base, \(V_{\text{base},3}\) | 33 kV |
-| Bus 4 voltage base, \(V_{\text{base},4}\) | 33 kV |
-| Bus 5 voltage base, \(V_{\text{base},5}\) | 33 kV |
+| Three-phase apparent-power base, $S_\text{base}$ | 100 MVA |
+| Bus 1 voltage base, $V_{\text{base},1}$ | 132 kV |
+| Bus 2 voltage base, $V_{\text{base},2}$ | 33 kV |
+| Bus 3 voltage base, $V_{\text{base},3}$ | 33 kV |
+| Bus 4 voltage base, $V_{\text{base},4}$ | 33 kV |
+| Bus 5 voltage base, $V_{\text{base},5}$ | 33 kV |
 | System frequency | 50 Hz |
 
 For the three-phase per-unit system, voltage bases are line-to-line RMS values and the apparent-power base is the three-phase total.
@@ -65,9 +65,9 @@ Calculate the impedance base at the 132 kV and 33 kV voltage levels.
 
 For a balanced three-phase system using line-to-line voltage and three-phase apparent power:
 
-\[
+$$
 Z_\text{base} = \frac{V_\text{base}^2}{S_\text{base}}
-\]
+$$
 
 When voltage is in kV and apparent power is in MVA, the result is in ohms.
 
@@ -75,35 +75,35 @@ When voltage is in kV and apparent power is in MVA, the result is in ohms.
 
 Inputs:
 
-\[
+$$
 V_\text{base}=132\text{ kV}, \qquad
 S_\text{base}=100\text{ MVA}
-\]
+$$
 
 Therefore:
 
-\[
+$$
 Z_{\text{base},132}=\frac{132^2}{100}
 =\frac{17424}{100}
 =174.24\ \Omega
-\]
+$$
 
 ### Calculation at 33 kV
 
 Inputs:
 
-\[
+$$
 V_\text{base}=33\text{ kV}, \qquad
 S_\text{base}=100\text{ MVA}
-\]
+$$
 
 Therefore:
 
-\[
+$$
 Z_{\text{base},33}=\frac{33^2}{100}
 =\frac{1089}{100}
 =10.89\ \Omega
-\]
+$$
 
 ### Results
 
@@ -116,9 +116,9 @@ Z_{\text{base},33}=\frac{33^2}{100}
 
 The impedance base depends on both the selected voltage base and the system apparent-power base. With the same 100 MVA base, the 132 kV impedance base is sixteen times the 33 kV impedance base because:
 
-\[
+$$
 \left(\frac{132}{33}\right)^2=16
-\]
+$$
 
 ### Verification checks
 
@@ -139,28 +139,28 @@ Calculate the admittance base at 33 kV.
 
 Admittance is the reciprocal of impedance:
 
-\[
+$$
 Y_\text{base}=\frac{1}{Z_\text{base}}
-\]
+$$
 
 From Example 1:
 
-\[
+$$
 Z_{\text{base},33}=10.89\ \Omega
-\]
+$$
 
 Therefore:
 
-\[
+$$
 Y_{\text{base},33}=\frac{1}{10.89}
 \approx 0.091827\text{ S}
-\]
+$$
 
 ### Result
 
-\[
+$$
 \boxed{Y_{\text{base},33}\approx0.091827\text{ S}}
-\]
+$$
 
 ### Interpretation
 
@@ -168,8 +168,8 @@ The admittance base is useful for converting a physical branch admittance in sie
 
 ### Verification checks
 
-- \(Y_\text{base}\) has units of siemens (S).
-- \(Z_\text{base}Y_\text{base}=1\), within numerical precision.
+- $Y_\text{base}$ has units of siemens (S).
+- $Z_\text{base}Y_\text{base}=1$, within numerical precision.
 
 ---
 
@@ -194,35 +194,35 @@ The example establishes the conversion method. The actual base used by the value
 
 The general impedance base-conversion equation is:
 
-\[
+$$
 Z_{\text{pu,new}} =
 Z_{\text{pu,old}}
 \left(\frac{S_{\text{base,new}}}{S_{\text{base,old}}}\right)
 \left(\frac{V_{\text{base,old}}}{V_{\text{base,new}}}\right)^2
-\]
+$$
 
 Here, the voltage bases are consistent, so the voltage ratio is 1.
 
 ### Calculation
 
-\[
+$$
 X_{\text{pu,new}}
 =0.2\left(\frac{100}{50}\right)
 =0.2(2)
 =0.4\text{ p.u.}
-\]
+$$
 
 If resistance is assumed to be zero for this simplified example:
 
-\[
+$$
 Z_{T1,\text{pu}}=j0.4\text{ p.u.}
-\]
+$$
 
 ### Result
 
-\[
+$$
 \boxed{Z_{T1,\text{pu}}=j0.4\text{ p.u.}}
-\]
+$$
 
 ### Interpretation
 
@@ -249,45 +249,45 @@ Calculate the total series resistance, reactance and complex impedance of a feed
 
 For a uniform line:
 
-\[
+$$
 Z_\text{line}=L(r+jx)
-\]
+$$
 
 where:
 
-- \(L\) is line length in km.
-- \(r\) is resistance in Ω/km.
-- \(x\) is reactance in Ω/km.
+- $L$ is line length in km.
+- $r$ is resistance in Ω/km.
+- $x$ is reactance in Ω/km.
 
 Therefore:
 
-\[
+$$
 R_\text{line}=Lr
-\]
+$$
 
-\[
+$$
 X_\text{line}=Lx
-\]
+$$
 
-\[
+$$
 Z_\text{line}=R_\text{line}+jX_\text{line}
-\]
+$$
 
 ### Project application
 
 Apply these equations separately to the actual CSV rows for L1, L2 and L3:
 
-\[
+$$
 Z_{L1}=L_1(r_1+jx_1)
-\]
+$$
 
-\[
+$$
 Z_{L2}=L_2(r_2+jx_2)
-\]
+$$
 
-\[
+$$
 Z_{L3}=L_3(r_3+jx_3)
-\]
+$$
 
 Use each feeder's own stored length and impedance parameters. Do not assume all three feeders have the same length or impedance.
 
@@ -295,25 +295,25 @@ Use each feeder's own stored length and impedance parameters. Do not assume all 
 
 For a teaching example only, suppose a feeder has:
 
-- Length \(L=8\text{ km}\)
-- Resistance \(r=0.40\ \Omega/\text{km}\)
-- Reactance \(x=0.35\ \Omega/\text{km}\)
+- Length $L=8\text{ km}$
+- Resistance $r=0.40\ \Omega/\text{km}$
+- Reactance $x=0.35\ \Omega/\text{km}$
 
 Then:
 
-\[
+$$
 R_\text{line}=8(0.40)=3.2\ \Omega
-\]
+$$
 
-\[
+$$
 X_\text{line}=8(0.35)=2.8\ \Omega
-\]
+$$
 
 Thus:
 
-\[
+$$
 \boxed{Z_\text{line}=3.2+j2.8\ \Omega}
-\]
+$$
 
 These illustrative values must not be attributed to L1 or any other actual feeder unless confirmed by the current CSV data.
 
@@ -339,46 +339,46 @@ Convert a feeder's physical series impedance to per unit using the appropriate b
 
 ### Formula
 
-\[
+$$
 Z_\text{pu}=\frac{Z_\text{actual}}{Z_\text{base}}
-\]
+$$
 
 At the 33 kV level, the project impedance base is:
 
-\[
+$$
 Z_{\text{base},33}=10.89\ \Omega
-\]
+$$
 
 For any feeder connecting Bus 2 to one of the load buses:
 
-\[
+$$
 Z_{Lk,\text{pu}}=
 \frac{R_{Lk}+jX_{Lk}}{10.89}
-\]
+$$
 
-where \(k\) is 1, 2 or 3.
+where $k$ is 1, 2 or 3.
 
 ### Illustrative numerical calculation — based on Example 4 only
 
 Using the teaching example:
 
-\[
+$$
 Z_\text{line}=3.2+j2.8\ \Omega
-\]
+$$
 
 Then:
 
-\[
+$$
 Z_{\text{line,pu}}=
 \frac{3.2+j2.8}{10.89}
-\]
+$$
 
 Divide the real and imaginary components by the same impedance base:
 
-\[
+$$
 Z_{\text{line,pu}}\approx
 0.29385+j0.25712
-\]
+$$
 
 This result is illustrative only; it is not a confirmed per-unit impedance for any actual feeder in the CSV files.
 
@@ -407,29 +407,29 @@ Calculate the complex series admittance of a branch.
 
 Admittance is the reciprocal of complex impedance:
 
-\[
+$$
 Y=\frac{1}{Z}
-\]
+$$
 
 For:
 
-\[
+$$
 Z=R+jX
-\]
+$$
 
 multiply numerator and denominator by the complex conjugate:
 
-\[
+$$
 Y=\frac{1}{R+jX}
 =\frac{R-jX}{R^2+X^2}
-\]
+$$
 
 Therefore:
 
-\[
+$$
 \boxed{Y=\frac{R}{R^2+X^2}
 -j\frac{X}{R^2+X^2}}
-\]
+$$
 
 This shows why the real and imaginary components cannot be inverted independently.
 
@@ -437,50 +437,50 @@ This shows why the real and imaginary components cannot be inverted independentl
 
 For:
 
-\[
+$$
 Z=3.2+j2.8\ \Omega
-\]
+$$
 
 the squared magnitude is:
 
-\[
+$$
 R^2+X^2=3.2^2+2.8^2
 =10.24+7.84=18.08
-\]
+$$
 
 Thus:
 
-\[
+$$
 Y=\frac{3.2-j2.8}{18.08}
-\]
+$$
 
-\[
+$$
 \boxed{Y\approx0.17699-j0.15487\text{ S}}
-\]
+$$
 
 This is the admittance in siemens for the illustrative physical impedance.
 
 If the impedance is already in per unit, its per-unit admittance is:
 
-\[
+$$
 Y_\text{pu}=\frac{1}{Z_\text{pu}}
-\]
+$$
 
 Using the rounded per-unit impedance from Example 5 gives approximately:
 
-\[
+$$
 Y_\text{pu}\approx1.92743-j1.68650
-\]
+$$
 
 Small differences can occur due to rounding.
 
 ### Interpretation
 
-For a passive series branch with positive resistance and positive inductive reactance, the series admittance has a positive real component and a negative imaginary component under the \(R+jX\) impedance convention.
+For a passive series branch with positive resistance and positive inductive reactance, the series admittance has a positive real component and a negative imaginary component under the $R+jX$ impedance convention.
 
 ### Verification checks
 
-- Confirm \(ZY=1\) within numerical tolerance.
+- Confirm $ZY=1$ within numerical tolerance.
 - Confirm that admittance is in siemens when impedance is in ohms.
 - Confirm that per-unit admittance is dimensionless.
 - Do not mix physical and per-unit values in the same matrix.
@@ -495,15 +495,15 @@ Understand how the agreed topology determines the structure of the bus-admittanc
 
 ### Governing equation
 
-\[
+$$
 \mathbf I_\text{bus}=\mathbf Y_\text{bus}\mathbf V_\text{bus}
-\]
+$$
 
 For a network with five buses, the bus-admittance matrix has five rows and five columns:
 
-\[
+$$
 \mathbf Y_\text{bus}\in\mathbb C^{5\times5}
-\]
+$$
 
 The matrix relates the vector of bus current injections to the vector of bus voltages, under the selected sign conventions and network model.
 
@@ -511,10 +511,10 @@ The matrix relates the vector of bus current injections to the vector of bus vol
 
 Let:
 
-- \(y_{12}\) be the series admittance of transformer T1 between Buses 1 and 2.
-- \(y_{23}\) be the series admittance of feeder L1 between Buses 2 and 3.
-- \(y_{24}\) be the series admittance of feeder L2 between Buses 2 and 4.
-- \(y_{25}\) be the series admittance of feeder L3 between Buses 2 and 5.
+- $y_{12}$ be the series admittance of transformer T1 between Buses 1 and 2.
+- $y_{23}$ be the series admittance of feeder L1 between Buses 2 and 3.
+- $y_{24}$ be the series admittance of feeder L2 between Buses 2 and 4.
+- $y_{25}$ be the series admittance of feeder L3 between Buses 2 and 5.
 
 For this example, assume:
 
@@ -530,59 +530,59 @@ These are simplifying assumptions for the matrix construction example, not claim
 
 An off-diagonal element is the negative of the direct branch admittance between the corresponding buses:
 
-\[
+$$
 Y_{12}=Y_{21}=-y_{12}
-\]
+$$
 
-\[
+$$
 Y_{23}=Y_{32}=-y_{23}
-\]
+$$
 
-\[
+$$
 Y_{24}=Y_{42}=-y_{24}
-\]
+$$
 
-\[
+$$
 Y_{25}=Y_{52}=-y_{25}
-\]
+$$
 
 There are no direct branches between Buses 3 and 4, 3 and 5, or 4 and 5 in the agreed topology. Therefore:
 
-\[
+$$
 Y_{34}=Y_{43}=0
-\]
+$$
 
-\[
+$$
 Y_{35}=Y_{53}=0
-\]
+$$
 
-\[
+$$
 Y_{45}=Y_{54}=0
-\]
+$$
 
 ### Diagonal elements
 
 Each diagonal element is the sum of the admittances connected directly to that bus:
 
-\[
+$$
 Y_{11}=y_{12}
-\]
+$$
 
-\[
+$$
 Y_{22}=y_{12}+y_{23}+y_{24}+y_{25}
-\]
+$$
 
-\[
+$$
 Y_{33}=y_{23}
-\]
+$$
 
-\[
+$$
 Y_{44}=y_{24}
-\]
+$$
 
-\[
+$$
 Y_{55}=y_{25}
-\]
+$$
 
 This example excludes shunt elements and other device models. If those are added later, their admittances must be included according to the adopted model.
 
@@ -590,7 +590,7 @@ This example excludes shunt elements and other device models. If those are added
 
 The resulting matrix is:
 
-\[
+$$
 \mathbf Y_\text{bus}=
 \begin{bmatrix}
 y_{12} & -y_{12} & 0 & 0 & 0\\
@@ -599,7 +599,7 @@ y_{12} & -y_{12} & 0 & 0 & 0\\
 0 & -y_{24} & 0 & y_{24} & 0\\
 0 & -y_{25} & 0 & 0 & y_{25}
 \end{bmatrix}
-\]
+$$
 
 The zeros express the absence of direct branches between those bus pairs in this simplified network model. They do not mean that the buses are electrically isolated from one another: Buses 3, 4 and 5 are each connected to Bus 2.
 
@@ -611,7 +611,7 @@ The matrix should be built from the branch list and connectivity data, rather th
 
 ### Verification checks
 
-- Matrix dimensions are \(5\times5\).
+- Matrix dimensions are $5\times5$.
 - Every in-service branch contributes to the correct diagonal elements.
 - Each represented series branch contributes negative off-diagonal terms at its two terminal buses.
 - Bus pairs without direct branches have zero off-diagonal elements under this model.
@@ -630,17 +630,17 @@ Understand why a constant-power load should not automatically be inserted into Y
 
 A constant-power load is commonly described by active and reactive power:
 
-\[
+$$
 S_\text{load}=P_\text{load}+jQ_\text{load}
-\]
+$$
 
-Under a load convention, positive \(P_\text{load}\) and \(Q_\text{load}\) represent consumption.
+Under a load convention, positive $P_\text{load}$ and $Q_\text{load}$ represent consumption.
 
-For a constant-power model, current depends on the bus voltage. In complex form, using load power \(S=VI^*\):
+For a constant-power model, current depends on the bus voltage. In complex form, using load power $S=VI^*$:
 
-\[
+$$
 I_\text{load}=\left(\frac{S_\text{load}}{V}\right)^*
-\]
+$$
 
 where the star denotes complex conjugation.
 
@@ -661,7 +661,7 @@ Some studies may use an equivalent load admittance at a chosen operating point, 
 
 ### Verification checks
 
-- Do not add \(P+jQ\) directly to a Y-bus matrix element.
+- Do not add $P+jQ$ directly to a Y-bus matrix element.
 - Do not silently convert a constant-power load to a fixed impedance.
 - Confirm that the load sign convention is consistent between data, equations and reported results.
 

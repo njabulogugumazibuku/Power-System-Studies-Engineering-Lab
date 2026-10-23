@@ -86,14 +86,14 @@ The MW and Mvar demand for each load remains to be confirmed. Do not treat value
 
 | Quantity | Study basis |
 |---|---:|
-| Three-phase apparent power base, \(S_\text{base}\) | 100 MVA |
+| Three-phase apparent power base, $S_\text{base}$ | 100 MVA |
 | Bus 1 voltage base, line-to-line RMS | 132 kV |
 | Buses 2–5 voltage base, line-to-line RMS | 33 kV |
 | Frequency | 50 Hz |
 | Phase convention | Balanced three-phase system |
 | Power convention | Total three-phase MW, Mvar, and MVA |
-| Impedance convention | \(Z=R+jX\) |
-| Admittance convention | \(Y=G+jB=1/Z\) |
+| Impedance convention | $Z=R+jX$ |
+| Admittance convention | $Y=G+jB=1/Z$ |
 
 The voltage bases are consistent with the nominal 132/33 kV transformer ratio.
 
@@ -101,55 +101,55 @@ The voltage bases are consistent with the nominal 132/33 kV transformer ratio.
 
 For a balanced three-phase system using line-to-line kV and three-phase MVA:
 
-\[
+$$
 Z_\text{base}=\frac{V_\text{base}^{2}}{S_\text{base}}
-\]
+$$
 
 At 132 kV:
 
-\[
+$$
 Z_{\text{base},132}=\frac{132^2}{100}=174.24\ \Omega
-\]
+$$
 
 At 33 kV:
 
-\[
+$$
 Z_{\text{base},33}=\frac{33^2}{100}=10.89\ \Omega
-\]
+$$
 
-Base admittance is \(Y_\text{base}=1/Z_\text{base}\). At 33 kV, \(Y_{\text{base},33}\approx0.091827\ \text{S}\).
+Base admittance is $Y_\text{base}=1/Z_\text{base}$. At 33 kV, $Y_{\text{base},33}\approx0.091827\ \text{S}$.
 
 ### 4.3 Per-unit quantities
 
-\[
+$$
 Z_\text{pu}=\frac{Z_\text{actual}}{Z_\text{base}}
-\]
+$$
 
-\[
+$$
 Y_\text{pu}=\frac{Y_\text{actual}}{Y_\text{base}}
 =Y_\text{actual}Z_\text{base}
-\]
+$$
 
 All branch impedances used together in the Y-bus must be expressed on the common 100 MVA system base and the appropriate voltage base.
 
 ### 4.4 Transformer impedance base conversion
 
-Transformer T1 is specified as 50 MVA, 132/33 kV, with reactance \(X=0.2\) pu on its 50 MVA equipment base. The intended system base is 100 MVA.
+Transformer T1 is specified as 50 MVA, 132/33 kV, with reactance $X=0.2$ pu on its 50 MVA equipment base. The intended system base is 100 MVA.
 
-\[
+$$
 Z_{\text{pu,new}} =
 Z_{\text{pu,old}}
 \left(\frac{S_{\text{base,new}}}{S_{\text{base,old}}}\right)
 \left(\frac{V_{\text{base,old}}}{V_{\text{base,new}}}\right)^2
-\]
+$$
 
 Assuming the voltage bases match the transformer rated voltages, the voltage factor is 1:
 
-\[
+$$
 X_{\text{pu,system}}=0.2\left(\frac{100}{50}\right)=0.4\ \text{pu}
-\]
+$$
 
-The initial model assumes \(R=0\) pu, so \(Z_{T1}=j0.4\) pu and \(y_{T1}=1/(j0.4)=-j2.5\) pu. Zero resistance is a simplifying assumption, not a claim that a real transformer has no losses. Record the original equipment base and ensure conversion occurs exactly once.
+The initial model assumes $R=0$ pu, so $Z_{T1}=j0.4$ pu and $y_{T1}=1/(j0.4)=-j2.5$ pu. Zero resistance is a simplifying assumption, not a claim that a real transformer has no losses. Record the original equipment base and ensure conversion occurs exactly once.
 
 ## 5. Feeder and load modelling
 
@@ -157,11 +157,11 @@ The initial model assumes \(R=0\) pu, so \(Z_{T1}=j0.4\) pu and \(y_{T1}=1/(j0.4
 
 Each feeder is initially represented by a series impedance:
 
-\[
+$$
 Z_\text{line}=L(r+jx)
-\]
+$$
 
-where \(L\) is length in kilometres, \(r\) is resistance in ohms per kilometre, and \(x\) is reactance in ohms per kilometre.
+where $L$ is length in kilometres, $r$ is resistance in ohms per kilometre, and $x$ is reactance in ohms per kilometre.
 
 The lengths and per-kilometre impedance parameters for L1, L2, and L3 have not yet been verified. Do not approve final feeder per-unit impedances or admittances until those values are confirmed. Line charging and shunt admittances are excluded from the initial model.
 
@@ -175,22 +175,22 @@ Constant-PQ loads are not normally inserted as fixed series branch admittances i
 
 Bus 1 is the intended slack/reference bus. It establishes the voltage-angle reference and balances the active and reactive power mismatch in a conventional power-flow formulation.
 
-The slack-bus voltage magnitude and angle are not yet formally fixed. A common educational starting point is \(V=1.0\) pu and \(\theta=0^\circ\), but these values must be explicitly set in the model before a power-flow calculation.
+The slack-bus voltage magnitude and angle are not yet formally fixed. A common educational starting point is $V=1.0$ pu and $\theta=0^\circ$, but these values must be explicitly set in the model before a power-flow calculation.
 
 Bus IDs and branch endpoints in the CSV files must match the IDs used by the Python model. Component IDs must be unique, and every branch endpoint must reference an existing bus.
 
 ## 7. Y-bus modelling rules
 
 For the initial reciprocal series-branch model:
-- Each off-diagonal entry \(Y_{ij}\) is the negative of the total series admittance directly connecting buses \(i\) and \(j\).
-- Each diagonal entry \(Y_{ii}\) is the sum of admittances of branches incident on bus \(i\), plus any explicitly modelled shunts.
+- Each off-diagonal entry $Y_{ij}$ is the negative of the total series admittance directly connecting buses $i$ and $j$.
+- Each diagonal entry $Y_{ii}$ is the sum of admittances of branches incident on bus $i$, plus any explicitly modelled shunts.
 - If no direct branch connects two buses, the corresponding off-diagonal entry is zero.
-- With reciprocal branches and no phase-shifting transformer effects, the Y-bus should be symmetric: \(Y_{ij}=Y_{ji}\).
+- With reciprocal branches and no phase-shifting transformer effects, the Y-bus should be symmetric: $Y_{ij}=Y_{ji}$.
 - The bus ordering used for the matrix must be explicit and recorded.
 
-The target model has five buses, so the expected Y-bus dimension is \(5\times5\).
+The target model has five buses, so the expected Y-bus dimension is $5\times5$.
 
-With the proposed topology, there are no direct branches between Bus 3, Bus 4, and Bus 5. Thus \(Y_{34}=Y_{35}=Y_{45}=0\), and the symmetric counterpart entries are also zero, unless additional branches are added. Diagonal terms include only branches and shunts actually connected to each bus. Constant-PQ loads are handled in the power-flow equations rather than automatically added as series admittances.
+With the proposed topology, there are no direct branches between Bus 3, Bus 4, and Bus 5. Thus $Y_{34}=Y_{35}=Y_{45}=0$, and the symmetric counterpart entries are also zero, unless additional branches are added. Diagonal terms include only branches and shunts actually connected to each bus. Constant-PQ loads are handled in the power-flow equations rather than automatically added as series admittances.
 
 ## 8. Data provenance and units
 
@@ -229,7 +229,7 @@ Do not mix ohms with per-unit values or line-to-line voltage with phase voltage 
 - Branch admittances are calculated as complex reciprocals of branch impedances.
 - Off-diagonal entries have the negative-admittance sign.
 - Diagonal entries equal the sum of connected branch admittances plus included shunts.
-- The Y-bus is \(5\times5\).
+- The Y-bus is $5\times5$.
 - The initial Y-bus is symmetric for this reciprocal, no-phase-shift model.
 - Numerical tests use suitable floating-point tolerances.
 
