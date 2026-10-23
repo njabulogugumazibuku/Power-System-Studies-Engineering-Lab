@@ -1,393 +1,250 @@
-<<<<<<< HEAD
-# 01 — System Model
-
-## Purpose
-
-This directory contains the source-of-truth definition of the fictional power network used throughout the Power System Studies Engineering Lab.
-
-The data in this directory defines the initial network topology, equipment and operating conditions.
-
-All data is synthetic and intended for educational and portfolio purposes.
-
----
-
-## Network Topology
-
-The initial network consists of:
-
-- Bus 1 — 132 kV grid/slack bus
-- Bus 2 — 33 kV main bus
-- Bus 3 — 33 kV load bus
-- Bus 4 — 33 kV load bus
-- Bus 5 — 33 kV load bus
-- Transformer T1 — 132/33 kV, 50 MVA
-- Line L1 — Bus 2 to Bus 3
-- Line L2 — Bus 2 to Bus 4
-- Line L3 — Bus 2 to Bus 5
-
----
-
-## System Bases
-
-| Quantity | Value |
-|---|---:|
-| System MVA base | 100 MVA |
-| HV voltage base | 132 kV |
-| MV voltage base | 33 kV |
-| Frequency | 50 Hz |
-
-Derived quantities:
-
-### 132 kV side
-
-Z_base = V_base² / S_base
-
-Z_base = 132² / 100
-
-Z_base = 174.24 Ω
-
-I_base = S_base / (√3 × V_base)
-
-I_base ≈ 437.4 A
-
-### 33 kV side
-
-Z_base = 33² / 100
-
-Z_base = 10.89 Ω
-
-I_base = 100 MVA / (√3 × 33 kV)
-
-I_base ≈ 1749.5 A
-
----
-
-## Transformer
-
-Transformer T1:
-
-- Rating: 50 MVA
-- HV: 132 kV
-- LV: 33 kV
-- Leakage impedance: 10%
-- Transformer resistance: neglected initially
-- Nominal tap: 1.0 pu
-
-The transformer impedance is initially represented as purely reactive.
-
-On the transformer base:
-
-Z_T = j0.10 pu
-
-Converted to the 100 MVA system base:
-
-Z_T,new = Z_T,old × (S_base,new / S_base,old)
-
-Z_T,new = j0.10 × (100 / 50)
-
-Z_T,new = j0.20 pu
-
----
-
-## Loads
-
-### Load 1 — Bus 3
-
-- Active power: 10 MW
-- Power factor: 0.95 lagging
-- Reactive power: approximately 3.29 MVAr
-
-### Load 2 — Bus 4
-
-- Active power: 12 MW
-- Power factor: 0.92 lagging
-- Reactive power: approximately 5.10 MVAr
-
-### Load 3 — Bus 5
-
-- Active power: 8 MW
-- Power factor: 0.90 lagging
-- Reactive power: approximately 3.88 MVAr
-
-Total:
-
-- Active power: 30 MW
-- Reactive power: approximately 12.27 MVAr
-- Apparent power: approximately 32.41 MVA
-
----
-
-## Bus Types
-
-| Bus | Type | Description |
-|---|---|---|
-| 1 | SLACK | External grid reference |
-| 2 | PQ | 33 kV main bus |
-| 3 | PQ | Load bus |
-| 4 | PQ | Load bus |
-| 5 | PQ | Load bus |
-
-Bus 1 is initially specified as:
-
-V = 1.0 pu
-
-δ = 0°
-
----
-
-## Modelling Assumptions
-
-1. The network is balanced and represented using a positive-sequence, three-phase steady-state model.
-2. The external grid is represented by a slack/reference bus for the initial power-flow study.
-3. Transformer resistance is neglected initially.
-4. Transformer tap position is fixed at nominal.
-5. Lines are represented by lumped series impedance.
-6. Line shunt capacitance is neglected initially.
-7. Loads are represented as constant P-Q loads.
-8. All network data is synthetic.
-9. No equipment limits are enforced in the first system-model milestone.
-10. No generator other than the external grid is represented initially.
-
----
-
-## Engineering Purpose
-
-This model will form the basis for:
-
-- Per-unit calculations
-- Y-bus formation
-- Power-flow studies
-- Voltage-profile analysis
-- Loss calculations
-- Contingency studies
-- Short-circuit studies
-- Protection-related analysis
-- Future network expansion
-=======
 # Power System Studies Engineering Lab
 
-## Purpose
+An educational Python project for learning, implementing, and testing power-system studies through small, reproducible engineering examples.
 
-The Power System Studies Engineering Lab is a long-term engineering learning and development project focused on practical power-system studies implemented using Python.
+The repository combines power-system theory with software development practices: clear input data, modular calculations, automated tests, and documented assumptions. It is intended for engineers and students who want to understand both the calculations and how to implement them in Python.
 
-The project uses a fictional but technically coherent electrical network as a laboratory environment for developing:
+> **Status:** Educational project under active development. Do not use its results for operational, planning, protection, or other real-world engineering decisions without independent engineering validation.
 
-- Power-system analysis knowledge
-- Numerical methods
-- Python programming skills
-- Engineering modelling skills
-- Automated verification and testing
-- Engineering interpretation and documentation
+## What you can do here
 
-The project is intended for educational and portfolio development purposes.
+- Explore a small power-system network defined in CSV files.
+- Load and validate the network model using Python.
+- Develop and test power-system calculations incrementally.
+- Learn through worked examples, unit tests, and documented assumptions.
+- Extend the project with additional studies as the model matures.
 
-It does not represent an actual utility network and must not be treated as a substitute for a utility-grade engineering study.
+## Repository guide
 
----
+| Location | What it is for |
+|---|---|
+| `01_system_model/` | Network input data in CSV format and related system-model assets. |
+| `src/power_system/` | Python package containing the network model, input/output functions, calculations, and validation logic. |
+| `tests/` | Automated tests for calculations, data loading, and model validation. |
+| `docs/` | Engineering reference material, worked calculations, data definitions, verification guidance, and recorded decisions. |
+| `pyproject.toml` | Python project metadata, package configuration, and test configuration. |
 
-## Engineering Philosophy
+The network input files are maintained separately from the calculation code. This makes it easier to inspect the input data and understand which values a calculation uses.
 
-The project follows this workflow:
+### Where should I start?
 
-1. Learn the engineering concept.
-2. Understand the physical principles and model.
-3. Work through a numerical example.
-4. Implement the method in Python.
-5. Test the implementation.
-6. Interpret the results.
-7. Document the findings.
-8. Move to the next study.
+- **New to the repository?** Start here, then inspect `01_system_model/` and `01_system_model/load_model.py`.
+- **Want to understand the engineering assumptions?** Read `docs/study_basis.md`.
+- **Need to interpret the CSV columns?** Read `docs/data_dictionary.md`.
+- **Want to follow a calculation by hand?** Read `docs/worked_examples.md`.
+- **Want to understand how the model is checked?** Read `docs/verification_checklist.md` and explore `tests/`.
+- **Want to understand why a modelling choice was made?** Read `docs/engineering_decisions.md`.
 
-Python is used as the laboratory through which power-system engineering concepts are explored.
+Some files may be added as the project develops. If a path listed above is not yet present in the current branch, use the files that are available and treat the relevant documentation as planned or in progress.
 
-The objective is not simply to produce numerical answers, but to understand:
+## Prerequisites
 
-1. What engineering problem is being solved.
-2. Why the study is performed.
-3. What physical principles govern the problem.
-4. What mathematical model represents the system.
-5. How the numerical method works.
-6. How the method is implemented.
-7. How the implementation is verified.
-8. What the results mean physically.
-9. What engineering decisions the results could support.
+You will need:
 
----
+- **Git** to clone the repository.
+- **Python 3.10 or later**.
+- **pip**, included with standard Python installations, to install the project and its development tools.
+- A terminal and a code editor. VS Code or another Python-capable editor is suitable.
 
-## Initial Study Scope
+The project uses a `src/` package layout and is configured through `pyproject.toml`. The test suite uses `pytest`.
 
-The first milestone is:
+No database or external power-system simulation application is required for the basic Python workflow described below.
 
-**Milestone 01 — Power-System Model & Per-Unit System**
+## Setup
 
-The initial milestone covers:
+### 1. Clone the repository
 
-- System topology
-- Bus modelling
-- Generator/grid representation
-- Load modelling
-- Transformer modelling
-- Line modelling
-- System base selection
-- Voltage bases
-- Base impedance
-- Base current
-- Per-unit conversion
-- Engineering assumptions
-- Manual verification
-- Python implementation
-- Automated tests
+Replace `<repository-url>` with the clone URL shown on the repository's GitHub page.
 
-The next major study will be:
-
-**Milestone 02 — Y-Bus Formation**
-
----
-
-## Initial System
-
-The initial fictional network consists of:
-
-- One external grid source
-- One 132/33 kV transformer
-- One 33 kV main bus
-- Three 33 kV feeders
-- Three load buses
-
-Conceptually:
-
-```text
-    GRID
-      |
-    BUS 1
-    132 kV
-      |
-    T1
-    132/33 kV
-      |
-    BUS 2
-    33 kV
-    /  |  \
-   /   |   \
-   L1   L2   L3
-  |    |    |
-  B3   B4   B5
-  |    |    |
-  L1   L2   L3
+```bash
+git clone <repository-url>
+cd power-system-studies-engineering-lab
 ```
 
----
+If you already have the repository locally, change into its root directory instead.
 
-## System Base
+### 2. Create a virtual environment
 
-The initial common system base is:
+A virtual environment keeps this project's Python packages separate from other Python projects.
 
-- Apparent power base: 100 MVA
-- HV voltage base: 132 kV
-- MV voltage base: 33 kV
-- Frequency: 50 Hz
+**Linux / macOS**
 
-The 33 kV voltage base is derived from the 132/33 kV transformer ratio.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
----
+**Windows PowerShell**
 
-## Important Modelling Conventions
+```powershell
+py -3 -m venv .venv
+.venv\\Scripts\\Activate.ps1
+```
 
-### Voltage
+If your system does not have the required Python version, install Python 3.10 or later before continuing.
 
-Bus voltage is represented using line-to-line RMS voltage for the three-phase system.
+### 3. Install the project
 
-### Power
+With the virtual environment activated, run:
 
-Three-phase apparent power is calculated as:
+```bash
+python -m pip install --upgrade pip
+python -m pip install -e .
+```
 
-$$
-S = \sqrt{3}\,V_{LL}I_L
-$$
+The editable install makes the package importable from the development checkout without repeatedly reinstalling it after every source-code change.
 
-### Per-Unit
+### 4. Install the test tool
 
-The primary per-unit relationships used in the project are:
+If `pytest` is not already installed in the virtual environment, install it:
 
-$$
-V_{pu} = \frac{V_{actual}}{V_{base}},\qquad
-I_{pu} = \frac{I_{actual}}{I_{base}},\qquad
-Z_{pu} = \frac{Z_{actual}}{Z_{base}},\qquad
-S_{pu} = \frac{S_{actual}}{S_{base}}
-$$
+```bash
+python -m pip install pytest
+```
 
-### Sign Convention
+The repository's `pyproject.toml` configures pytest to look for tests in `tests/` and adds `src/` to the Python import path.
 
-Loads are treated as consuming positive active and reactive power.
+> **Dependency note:** If the project later declares development dependencies or an optional development extra in `pyproject.toml`, prefer installing those declared dependencies rather than maintaining a separate manual list.
 
-Within the engineering input data, this means:
+## Run the project
 
-$$
-P_{load} > 0,\qquad Q_{load} > 0
-$$
+Run commands from the **repository root**, unless a command says otherwise.
 
-The power-flow formulation will later translate these quantities into the sign convention required by the numerical solver.
+### Load and inspect the network model
 
----
+The repository includes a script for loading the CSV-based model:
 
-## Data Classification
+```bash
+python 01_system_model/load_model.py
+```
 
-Engineering information in this repository is classified conceptually as:
+This script should load the network data and print a model summary. If it fails, check that you are in the repository root, that the expected CSV files are present, and that the package has been installed in the active virtual environment.
 
-### Physical Principle
+### Run the automated tests
 
-A fundamental electrical relationship or physical law.
+Run the full test suite:
 
-### Textbook Model
+```bash
+python -m pytest
+```
 
-A mathematical simplification used for analysis.
+For a more detailed report:
 
-### Project Assumption
+```bash
+python -m pytest -v
+```
 
-A value or modelling decision deliberately selected for this educational network.
+Run a single test file when working on a particular feature:
 
-### Industry Practice
+```bash
+python -m pytest tests/test_csv_loader.py
+```
 
-A convention commonly used in professional power-system studies.
+Test filenames and available test modules may evolve as the project grows. Use `pytest --collect-only -q` to see which tests pytest currently discovers.
 
-### Engineering Requirement
+### Deactivate the virtual environment
 
-A requirement that would need to be established from an applicable standard, grid code, utility specification, equipment specification or actual engineering study.
+When you are finished:
 
-Project assumptions must not be represented as real utility requirements.
+```bash
+deactivate
+```
 
----
+To return to the project later, open a terminal in the repository and activate `.venv` again.
 
-## Project Limitations
+## Typical development workflow
 
-The initial model is intentionally simplified.
+1. **Understand the problem.** Read the relevant engineering notes and identify the inputs and assumptions.
+2. **Inspect the network data.** Check the relevant CSV rows and units before writing calculations.
+3. **Implement one small calculation.** Keep engineering logic in the Python package rather than duplicating it in scripts.
+4. **Write or update tests.** Cover normal results, boundary conditions, and invalid inputs where appropriate.
+5. **Run the tests.** Use `python -m pytest` before committing.
+6. **Document meaningful changes.** Update the relevant document in `docs/` when assumptions, equations, supported data fields, or model behaviour change.
 
-It does not currently represent:
+A useful learning loop for this repository is:
 
-- Actual utility network data
-- Detailed conductor geometry
-- Detailed transformer construction
-- Detailed generator models
-- Protection settings
-- Actual protection coordination
-- Detailed grounding systems
-- Dynamic machine behaviour
-- Detailed load models
-- Harmonic behaviour
-- Electromagnetic transients
-- Real utility operating constraints
+**Learn → derive by hand → implement → test → interpret → document.**
 
-These may be introduced later where they support the learning objectives.
+## Working with Git
 
----
+Check the current working tree:
 
-## Learning Approach
+```bash
+git status
+```
 
-Each major study should connect these stages:
+Review the changes:
 
-**Physical system → Mathematical model → Numerical method → Python implementation → Verification → Engineering interpretation**
+```bash
+git diff
+```
 
-The project should favour incremental development over large implementations.
+Stage and commit a change:
 
-Code should be understandable, testable and traceable to the engineering equations it implements.
->>>>>>> src
+```bash
+git add <path-to-file>
+git commit -m "Describe the change"
+```
+
+Push your branch to GitHub using the branch and remote configured for your checkout:
+
+```bash
+git push
+```
+
+Before committing, make sure you have not accidentally staged virtual-environment files, caches, generated outputs, or unrelated changes.
+
+## Troubleshooting
+
+### `ModuleNotFoundError: No module named 'power_system'`
+
+- Confirm that the virtual environment is active.
+- From the repository root, run `python -m pip install -e .`.
+- Check that you are using the same Python interpreter for installation and execution.
+
+### `pytest` is not found
+
+Run:
+
+```bash
+python -m pip install pytest
+python -m pytest
+```
+
+Using `python -m pytest` helps ensure pytest runs with the active Python interpreter.
+
+### The CSV loader cannot find a file
+
+- Run the script from the repository root.
+- Confirm that the expected CSV files exist under `01_system_model/`.
+- Check the file names and required column names.
+- Read the error message before changing paths or data.
+
+### Tests fail after a change
+
+- Read the first failing test and its assertion or traceback.
+- Determine whether the failure is caused by the code, input data, or an outdated test expectation.
+- Avoid changing a test simply to make it pass unless the expected behaviour itself has been shown to be incorrect.
+
+## Project scope and limitations
+
+This is a learning and software-engineering project. Its calculations and model capabilities are limited to what is implemented and tested in the current codebase. A documented future feature should not be assumed to be implemented.
+
+Do not use the model as a substitute for validated utility-grade software, approved study procedures, or review by a suitably qualified engineer.
+
+## Contributing
+
+Contributions that improve correctness, readability, tests, or learning value are welcome.
+
+Before proposing a change:
+
+- Keep calculations small and explainable.
+- State units and assumptions explicitly.
+- Add tests for new behaviour.
+- Keep example values distinguishable from actual network inputs.
+- Update the relevant engineering documentation when needed.
+- Avoid committing secrets, local environment files, virtual environments, or generated caches.
+
+## License
+
+No license is specified here. Check the repository for a `LICENSE` file before reusing, modifying, or redistributing the code.
